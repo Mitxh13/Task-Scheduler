@@ -72,7 +72,7 @@ This project is licensed under the **MIT License** – see [LICENSE](LICENSE).
 
 | Member | Role |
 |--------|------|
-| <a href = "www.linkedin.com/in/mitesh-kurumeti"> ** Kurumeti Mitesh** | TBD |
+| <a href = "www.linkedin.com/in/mitesh-kurumeti"> **Kurumeti Mitesh** | TBD |
 
 
 
