@@ -72,5 +72,5 @@ This project is licensed under the **MIT License** – see [LICENSE](LICENSE).
 
 | Member | Role |
 |--------|------|
-| <img src="https://github.com/Mitxh13.png" width="50"> **Mitesh** | TBD |
+| <a href = "www.linkedin.com/in/mitesh-kurumeti"> **Kurumeti Mitesh** | TBD |
 
