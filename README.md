@@ -4,7 +4,7 @@ A **Task Scheduler** implemented in **C** using a **Min-Heap** and **Hash Map** 
 
 ---
 
-## 🔹 Features
+##  Features
 
 | Feature                | Description                                                              |
 | ---------------------- | ------------------------------------------------------------------------ |
@@ -16,7 +16,7 @@ A **Task Scheduler** implemented in **C** using a **Min-Heap** and **Hash Map** 
 
 ---
 
-## 🔹 Functionalities
+##  Functionalities
 
 ```c
 addTask(taskId, submissionTime, details);        // Add a new task
@@ -27,14 +27,14 @@ updateSubmissionTime(taskId, newSubmissionTime);// Update submission time & reor
 
 ---
 
-## 🔹 Data Structures Used
+##  Data Structures Used
 
 * **Min-Heap:** Keeps tasks sorted by `submissionTime` for quick access to the earliest task.
 * **Hash Map:** Maps `taskId` → heap index for **O(1)** access when updating, serving, or cancelling tasks.
 
 ---
 
-## 🔹 How It Works
+##  How It Works
 
 1. **Add Task:**
    Task is added to the heap. Hash map stores the task’s heap index.
@@ -51,7 +51,7 @@ updateSubmissionTime(taskId, newSubmissionTime);// Update submission time & reor
 ---
 
 
-## 🔹 Installation / Compilation
+##  Installation / Compilation
 
 ```bash
 git clone https://github.com/Mitxh13/System-Pilot.git
@@ -62,17 +62,12 @@ gcc main.c -o main.exe  #Use gcc main.c -o main.out for MacOS/Linux
 
 ---
 
-## 🔹 License
+##  License
 
 This project is licensed under the **MIT License** – see [LICENSE](LICENSE).
 
 --- 
 
-## 👥 Team Members
-
-| Member | Role |
-|--------|------|
-| <a href = "www.linkedin.com/in/mitesh-kurumeti"> **Kurumeti Mitesh** | TBD |
 
 
 
