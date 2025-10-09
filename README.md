@@ -57,7 +57,7 @@ updateSubmissionTime(taskId, newSubmissionTime);// Update submission time & reor
 git clone https://github.com/Mitxh13/System-Pilot.git
 cd System-Pilot
 gcc main.c -o main.exe  #Use gcc main.c -o main.out for MacOS/Linux
-./scheduler
+./main.exe (or) ./main.out
 ```
 
 ---
