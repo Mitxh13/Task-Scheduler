@@ -1,4 +1,4 @@
-# System-Pilot
+# Task Scheduler
 
 A **Task Scheduler** implemented in **C** using a **Min-Heap** and **Hash Map** for efficient task management. Tasks are prioritized by **earliest submission time** and can be added, served, cancelled, or updated.
 
