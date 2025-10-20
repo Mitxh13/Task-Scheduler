@@ -62,11 +62,6 @@ gcc main.c -o main.exe  (Use gcc main.c -o main.out for MacOS/Linux)
 
 ---
 
-##  License
-
-This project is licensed under the **MIT License** – see [LICENSE](LICENSE).
-
---- 
 
 
 
