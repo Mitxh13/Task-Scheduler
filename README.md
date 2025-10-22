@@ -34,23 +34,6 @@ updateSubmissionTime(taskId, newSubmissionTime);// Update submission time & reor
 
 ---
 
-##  How It Works
-
-1. **Add Task:**
-   Task is added to the heap. Hash map stores the task’s heap index.
-
-2. **Serve Task:**
-   Removes the task from the heap and maintains the min-heap property.
-
-3. **Cancel Task:**
-   Removes the task without marking it completed.
-
-4. **Update Submission Time:**
-   Modifies submission time and repositions task in the heap.
-
----
-
-
 ##  Installation / Compilation
 
 ```bash
