@@ -9,25 +9,31 @@ RUN apt-get update && apt-get install -y \
     libc6-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# ====== Copy project files ======
+# ====== Set working directory ======
 WORKDIR /app
+
+# ====== Copy project files ======
 COPY . .
 
-# ====== Compile backend ======
+# ====== Compile backend (CGI) ======
 RUN gcc src/task_scheduler.c src/scheduler.c -o /usr/lib/cgi-bin/scheduler.cgi -lm
-
-# ====== Permissions ======
 RUN chmod +x /usr/lib/cgi-bin/scheduler.cgi
 
-# ====== Copy web files ======
+# ====== Copy frontend files ======
 RUN mkdir -p /var/www/html/web
 COPY web /var/www/html/web
 
+# ====== Enable CGI module ======
+RUN lighty-enable-mod cgi
+
 # ====== Configure Lighttpd ======
 RUN echo 'server.document-root = "/var/www/html/web"\n\
-cgi.assign = ( ".cgi" => "" )\n\
 server.modules += ( "mod_cgi" )\n\
-index-file.names = ( "index.html" )' > /etc/lighttpd/lighttpd.conf
+cgi.assign = ( ".cgi" => "" )\n\
+index-file.names = ( "index.html" )\n\
+alias.url = ( "/cgi-bin/" => "/usr/lib/cgi-bin/" )\n\
+dir-listing.activate = "enable"\n\
+server.port = 80' > /etc/lighttpd/lighttpd.conf
 
 EXPOSE 80
 

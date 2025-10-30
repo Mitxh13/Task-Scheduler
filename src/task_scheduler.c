@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "src\task_scheduler.h"
+#include "task_scheduler.h"
 /* Hash map: open addressing with linear probing */
 static int map_hash(int taskId) {
     int h = taskId % MAP_SIZE;
