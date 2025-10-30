@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "bin/task_sheduler.h"
-
+#include "src\task_scheduler.h"
 /* File to persist tasks. Must be writable by Apache user (www-data) inside container. */
 #define DATA_FILE "/var/www/html/tasks.db"
 
