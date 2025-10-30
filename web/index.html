@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Scheduler</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Task Scheduler</h1>
+
+<div class="task-form">
+  <input id="taskId" type="text" placeholder="Task ID">
+  <input id="taskDesc" type="text" placeholder="Task Description">
+  <input id="taskTime" type="number" placeholder="Submission Time">
+  <div class="buttons">
+    <button class="add" onclick="addTask()">Add</button>
+    <button class="update" onclick="updateTask()">Update</button>
+    <button class="cancel" onclick="cancelTask()">Cancel</button>
+    <button class="complete" onclick="serveTask()">Complete</button>
+    <button onclick="loadTasks()">Refresh</button>
+  </div>
+</div>
+
+<table id="taskTable">
+  <thead>
+    <tr>
+      <th>Task ID</th>
+      <th>Description</th>
+      <th>Submission Time</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
