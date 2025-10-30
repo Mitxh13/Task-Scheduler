@@ -1,76 +1,94 @@
-# System-Pilot
+# 📊 Task Scheduler
 
-A **Task Scheduler** implemented in **C** using a **Min-Heap** and **Hash Map** for efficient task management. Tasks are prioritized by **earliest submission time** and can be added, served, cancelled, or updated.
-
----
-
-## 🔹 Features
-
-| Feature                | Description                                                              |
-| ---------------------- | ------------------------------------------------------------------------ |
-| Add Task               | Insert a new task with unique `taskId`, `submissionTime`, and `details`. |
-| Serve Task             | Mark a task as completed.                                                |
-| Cancel Task            | Remove a task from the scheduler.                                        |
-| Update Submission Time | Modify a task's submission time and reorder it in the heap.              |
-| Retrieve Task          | Access the task with the earliest submission time.                       |
+A **Task Scheduler** implemented in **C** using a **Min-Heap** and **Hash Map** for efficient and prioritized task management.
+Includes a **modern web-based frontend (HTML, CSS, JS)** for visualization and interaction — all connected via a **CGI-based backend** or **Docker container**.
 
 ---
 
-## 🔹 Functionalities
+## 🚀 Overview
 
-```c
-addTask(taskId, submissionTime, details);        // Add a new task
-serveTask(taskId);                               // Mark task as completed
-cancelTask(taskId);                              // Remove task
-updateSubmissionTime(taskId, newSubmissionTime);// Update submission time & reorder
+This scheduler allows users to manage and prioritize tasks efficiently.
+Each task is defined by:
+
+* **taskId** (unique identifier)
+* **submissionTime** (priority key)
+* **details** (task description)
+* **status** (Pending / Completed)
+
+Tasks are stored in a **Min-Heap**, ensuring that the earliest submission time always has the highest priority.
+A **Hash Map** ensures **O(1)** lookup, update, and deletion by `taskId`.
+
+---
+
+##  Functionalities
+
+| Function                                   | Description                                     |
+| ------------------------------------------ | ----------------------------------------------- |
+| `addTask(taskId, submissionTime, details)` | Adds a new task to the scheduler                |
+| `serveTask(taskId)`                        | Marks the specified task as **completed**       |
+| `cancelTask(taskId)`                       | Removes a task from the scheduler               |
+| `updateSubmissionTime(taskId, newTime)`    | Updates a task’s time and **reorders** the heap |
+| `viewTasks()`                              | Retrieves all tasks, ordered by submission time |
+
+---
+
+## Data Structures Used
+
+| Data Structure | Purpose                                                  |
+| -------------- | -------------------------------------------------------- |
+| **Min-Heap**   | Maintains tasks in ascending order of submission time    |
+| **Hash Map**   | Maps `taskId → heap index` for O(1) updates and removals |
+
+---
+
+## 📁 Project Folder Structure
+
+```
+Task-Scheduler/
+├─ web/
+│  ├─ index.html
+│  ├─ style.css
+│  └─ script.js
+├─ cgi-bin/
+│  ├─ task_scheduler.h
+│  ├─ task_scheduler.c
+│  └─ scheduler.c
+├── Dockerfile
+├── main.c                   
+└── README.md              
+
 ```
 
 ---
 
-## 🔹 Data Structures Used
+##  Code Structure
 
-* **Min-Heap:** Keeps tasks sorted by `submissionTime` for quick access to the earliest task.
-* **Hash Map:** Maps `taskId` → heap index for **O(1)** access when updating, serving, or cancelling tasks.
-
+* **Header Files (`.h`)** — contain function prototypes, constants, and structures.
+* **Source Files (`.c`)** — contain actual logic and implementations.
+* **Main File (`main.c`)** — drives execution (for CLI testing).
+* **Frontend** — provides a simple UI connected to the C backend using CGI.
 ---
 
-## 🔹 How It Works
+## 🛡️ Compilation & Execution
+### Clone the repo
+```bash 
+git clone https://github.com/Mitxh13/Task-Scheduler.git cd Task-Scheduler
+```
+## 🐳 Run via Docker
 
-1. **Add Task:**
-   Task is added to the heap. Hash map stores the task’s heap index.
-
-2. **Serve Task:**
-   Removes the task from the heap and maintains the min-heap property.
-
-3. **Cancel Task:**
-   Removes the task without marking it completed.
-
-4. **Update Submission Time:**
-   Modifies submission time and repositions task in the heap.
-
----
-
-
-## 🔹 Installation / Compilation
+A ready-to-use Dockerfile can host both the backend (C CGI) and frontend.
 
 ```bash
-git clone https://github.com/Mitxh13/System-Pilot.git
-cd System-Pilot
-gcc main.c -o main.exe  #Use gcc main.c -o main.out for MacOS/Linux
-./scheduler
+docker build -t task-scheduler .
+docker run -p 8080:80 task-scheduler
 ```
+Then visit **[http://localhost:8080](http://localhost:8080)**
 
 ---
-
-## 🔹 License
-
-This project is licensed under the **MIT License** – see [LICENSE](LICENSE).
-
---- 
-
-## 👥 Team Members
-
-| Member | Role |
-|--------|------|
-| <a href = "www.linkedin.com/in/mitesh-kurumeti"> **Kurumeti Mitesh** | TBD |
-
+## 🎨 Frontend Features
+* Intuitive and clean UI built with **HTML + CSS (Glassmorphic design)**
+* Smooth interactions using **vanilla JavaScript**
+* Real-time updates after each action (via Fetch API)
+* Status color indicators:
+  * 🟢 **Completed**
+  * 🟠 **Pending**
