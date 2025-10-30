@@ -49,7 +49,7 @@ Task-Scheduler/
 │  ├─ index.html
 │  ├─ style.css
 │  └─ script.js
-├─ cgi-bin/
+├─ bin/
 │  ├─ task_scheduler.h
 │  ├─ task_scheduler.c
 │  └─ scheduler.c
