@@ -67,7 +67,7 @@ Task-Scheduler/
 ### 🧠 Compile manually
 
 ```bash
-gcc main.c scheduler.c -o scheduler
+gcc main.c -o scheduler
 ```
 ### ▶️ Run
 ```bash
