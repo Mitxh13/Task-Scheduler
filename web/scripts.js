@@ -1,79 +1,88 @@
-const API = "/cgi-bin/scheduler.cgi";
+const API = "/bin/scheduler.cgi";
 
-// Helper for POST requests
-function postData(body) {
-return fetch(API, {
-method: "POST",
-headers: { "Content-Type": "application/x-www-form-urlencoded" },
-body
-}).then(res => res.json());
-}
-
-// Add Task
-function addTask() {
-const id = document.getElementById("taskId").value;
-const details = document.getElementById("taskDesc").value;
-const time = document.getElementById("taskTime").value;
-
-if (!id || !details || !time) return alert("Fill all fields!");
-postData(`action=add&id=${id}&time=${time}&details=${encodeURIComponent(details)}`)
-.then(() => loadTasks());
-}
-
-// Update submission time
-function updateTask() {
-const id = document.getElementById("taskId").value;
-const time = document.getElementById("taskTime").value;
-if (!id || !time) return alert("Enter Task ID and new time!");
-
-postData(`action=update&id=${id}&newtime=${time}`)
-.then(() => loadTasks());
-}
-
-// Cancel Task
-function cancelTask() {
-const id = document.getElementById("taskId").value;
-if (!id) return alert("Enter Task ID to cancel!");
-
-postData(`action=cancel&id=${id}`)
-.then(() => loadTasks());
-}
-
-// Mark as complete
-function serveTask() {
-const id = document.getElementById("taskId").value;
-if (!id) return alert("Enter Task ID to mark complete!");
-
-postData(`action=serve&id=${id}`)
-.then(() => loadTasks());
-}
-
-// Fetch and show tasks
-function loadTasks() {
-fetch(`${API}?action=view`)
-.then(res => res.json())
-.then(data => {
-const tbody = document.querySelector("#taskTable tbody");
-tbody.innerHTML = "";
-  if (!data.tasks || data.tasks.length === 0) {
-    tbody.innerHTML = "<tr><td colspan='4'>No tasks found</td></tr>";
-    return;
-  }
-
-  data.tasks.forEach(t => {
-    const row = document.createElement("tr");
-    row.innerHTML = `
-      <td>${t.id}</td>
-      <td>${t.details}</td>
-      <td>${t.time}</td>
-      <td class="${t.done ? "done" : "pending"}">${t.done ? "✅ Completed" : "⏳ Pending"}</td>
-    `;
-    tbody.appendChild(row);
+async function postData(body) {
+  const res = await fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body
   });
-})
-.catch(err => console.error("Error loading tasks:", err));
-
+  const text = await res.text();
+  try { return JSON.parse(text); } catch { return { text }; }
 }
 
-// Auto-load on page start
-window.onload = loadTasks;
+function getVal(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : "";
+}
+
+function addTask() {
+  const id = getVal("taskId");
+  const details = getVal("taskDesc");
+  const time = getVal("taskTime");
+  if (!id || !details || !time) return alert("Fill all fields!");
+  postData(`action=add&id=${encodeURIComponent(id)}&time=${encodeURIComponent(time)}&details=${encodeURIComponent(details)}`)
+    .then(() => {
+      loadTasks();
+      // optional: clear fields
+      // document.getElementById("taskDesc").value = "";
+    })
+    .catch(e => alert("Add failed: " + e));
+}
+
+function updateTask() {
+  const id = getVal("taskId");
+  const time = getVal("taskTime");
+  if (!id || !time) return alert("Enter Task ID and new time!");
+  postData(`action=update&id=${encodeURIComponent(id)}&newtime=${encodeURIComponent(time)}`)
+    .then(() => loadTasks())
+    .catch(e => alert("Update failed: " + e));
+}
+
+function cancelTask() {
+  const id = getVal("taskId");
+  if (!id) return alert("Enter Task ID!");
+  postData(`action=cancel&id=${encodeURIComponent(id)}`)
+    .then(() => loadTasks())
+    .catch(e => alert("Cancel failed: " + e));
+}
+
+function serveTask() {
+  const id = getVal("taskId");
+  if (!id) return alert("Enter Task ID!");
+  postData(`action=serve&id=${encodeURIComponent(id)}`)
+    .then(() => loadTasks())
+    .catch(e => alert("Serve failed: " + e));
+}
+
+function loadTasks() {
+  fetch(`${API}?action=view`)
+    .then(r => {
+      if (!r.ok) throw new Error("Network response was not ok");
+      return r.json();
+    })
+    .then(data => {
+      const tbody = document.querySelector("#taskTable tbody");
+      tbody.innerHTML = "";
+      if (!data.tasks || data.tasks.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='4'>No tasks found</td></tr>";
+        return;
+      }
+      data.tasks.forEach(t => {
+        const safeDetails = (t.details ?? "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const row = `<tr>
+          <td>${t.id}</td>
+          <td>${safeDetails}</td>
+          <td>${t.time}</td>
+          <td class="${t.done ? "done" : "pending"}">${t.done ? "✅ Completed" : "⏳ Pending"}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      const tbody = document.querySelector("#taskTable tbody");
+      tbody.innerHTML = `<tr><td colspan='4'>Error loading tasks</td></tr>`;
+    });
+}
+
+window.addEventListener("load", loadTasks);
