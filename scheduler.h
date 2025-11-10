@@ -5,7 +5,7 @@
 
 typedef struct {
     int taskId;
-    int submissionTime;  // this is for auto time i will take deafult in mins if sec needed then give in point value
+    int submissionTime;  // this is for auto time i will take deafult in mins if sec needed then give in float value
     char details[100];
     int completed;
     time_t startTime;
