@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include "scheduler.h"
 
-#define MAX_TASK_ID 10000  // adjust as needed for task ID range
+#define MAX_TASK_ID 100 // max. task id range, 999 is the max no which u can give as id
 
 void swap(Task **a, Task **b) {
     Task *temp = *a;
@@ -51,7 +51,7 @@ MinHeap* createHeap(int capacity) {
     heap->indexMap = (int*)malloc(MAX_TASK_ID * sizeof(int));
 
     for (int i = 0; i < MAX_TASK_ID; i++)
-        heap->indexMap[i] = -1; // initialize map to -1 (not present)
+        heap->indexMap[i] = -1; // initialize map to -1 
 
     heap->size = 0;
     heap->capacity = capacity;
@@ -83,6 +83,8 @@ void addTask(MinHeap *heap, int taskId, int submissionTime, const char *details)
 
     printf(" Task %d added! (Will auto-complete in %d minute(s))\n", taskId, submissionTime);
 }
+
+//--------------------------------------------------------------
 
 void checkAndUpdateTasks(MinHeap *heap) {
     time_t now = time(NULL);

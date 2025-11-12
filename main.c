@@ -10,7 +10,7 @@ int main() {
     char details[100];
 
     while (1) {
-        checkAndUpdateTasks(heap);
+        checkAndUpdateTasks(heap); //checks if any task is completed by auto time
 
         printf("\n Task Scheduler \n");
         printf("1. Add Task\n");
