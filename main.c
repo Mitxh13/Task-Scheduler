@@ -6,19 +6,22 @@
 
 int main() {
     MinHeap *heap = createHeap(50);
-    int choice, id, timeMins;
+    int choice, id, timeMins, priority;
     char details[100];
 
     while (1) {
-        checkAndUpdateTasks(heap); //checks if any task is completed by auto time
+        checkAndUpdateTasks(heap);
 
         printf("\n Task Scheduler \n");
         printf("1. Add Task\n");
         printf("2. View Tasks\n");
-        printf("3. Serve (force mark complete)\n");
+        printf("3. Mark Complete\n");
         printf("4. Cancel Task\n");
-        printf("5. Update Task Time\n");
-        printf("6. Exit the program\n");
+        printf("5. Update Time\n");
+        printf("6. Set Priority\n");
+        printf("7. Pause Task\n");
+        printf("8. Resume Task\n");
+        printf("9. Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
 
@@ -26,7 +29,7 @@ int main() {
             case 1:
                 printf("Enter Task ID: ");
                 scanf("%d", &id);
-                printf("Enter time (in minutes) to auto-complete: ");
+                printf("Enter time (in minutes): ");
                 scanf("%d", &timeMins);
                 printf("Enter Task Details: ");
                 getchar();
@@ -40,7 +43,7 @@ int main() {
                 break;
 
             case 3:
-                printf("Enter Task ID to mark as completed: ");
+                printf("Enter Task ID to mark complete: ");
                 scanf("%d", &id);
                 serveTask(heap, id);
                 break;
@@ -60,6 +63,26 @@ int main() {
                 break;
 
             case 6:
+                printf("Enter Task ID to set priority: ");
+                scanf("%d", &id);
+                printf("Enter priority (1 = low, higher = more important): ");
+                scanf("%d", &priority);
+                setTaskPriority(heap, id, priority);
+                break;
+
+            case 7:
+                printf("Enter Task ID to pause: ");
+                scanf("%d", &id);
+                pauseTask(heap, id);
+                break;
+
+            case 8:
+                printf("Enter Task ID to resume: ");
+                scanf("%d", &id);
+                resumeTask(heap, id);
+                break;
+
+            case 9:
                 freeHeap(heap);
                 printf("Exiting Scheduler.\n");
                 return 0;
@@ -69,9 +92,7 @@ int main() {
         }
 
         printf("\nChecking for completed tasks...\n");
-        for (int i = 0; i < 1; i++) {
-            sleep(1);
-            checkAndUpdateTasks(heap);
-        }
+        sleep(1);
+        checkAndUpdateTasks(heap);
     }
 }
