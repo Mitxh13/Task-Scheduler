@@ -20,6 +20,7 @@ void updateIndexMap(MinHeap *heap, int i, int j) {
         heap->indexMap[heap->arr[j]->taskId] = j;
 }
 
+//---- added during review
 int compareTasks(Task *a, Task *b) {
     if (a->priority != b->priority)
         return b->priority - a->priority;  //give off any large number to set priority
@@ -176,6 +177,7 @@ void updateSubmissionTime(MinHeap *heap, int taskId, int newTime) {
     printf("Task %d submission time updated to %d minute(s).\n", taskId, newTime);
 }
 
+//----all below added during review 
 // the priority u gave will be used here then set the heap acc to that
 void setTaskPriority(MinHeap *heap, int taskId, int priority) {
     int index = heap->indexMap[taskId];
